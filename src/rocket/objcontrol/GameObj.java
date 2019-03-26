@@ -1,18 +1,18 @@
 package rocket.objcontrol;
 
 import rocket.environment.Axis;
-import rocket.environment.Speed;
+import rocket.environment.Velocity;
 import rocket.environment.Timer;
 
 public abstract class GameObj extends Obj{
     private Axis axis;
-    private Speed speed;
+    private Velocity velocity;
     private boolean landed;
     private Timer timer;
 
-    public GameObj(Axis axis, Speed speed) {
+    public GameObj(Axis axis, Velocity velocity) {
         this.axis = axis;
-        this.speed = speed;
+        this.velocity = velocity;
         landed = false;
         timer = new Timer();
     }
@@ -33,12 +33,12 @@ public abstract class GameObj extends Obj{
         this.axis = axis;
     }
 
-    public Speed getSpeed() {
-        return speed;
+    public Velocity getSpeed() {
+        return velocity;
     }
 
-    public void setSpeed(Speed speed) {
-        this.speed = speed;
+    public void setSpeed(Velocity velocity) {
+        this.velocity = velocity;
     }
 
     public void setLanded(boolean landed) {

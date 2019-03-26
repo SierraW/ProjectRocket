@@ -1,11 +1,11 @@
 package rocket.rocketcore.rocketcomponent;
 
-import rocket.rocketcore.Disconnectable;
+import rocket.rocketcore.Controllable;
 import rocket.rocketcore.HoldingParts;
 import rocket.rocketcore.RocketPart;
 import rocket.rocketcore.rocketfragment.Fuel;
 
-public class RocketFuelTank extends RocketPart implements Disconnectable, HoldingParts {
+public class RocketFuelTank extends RocketPart implements Controllable, HoldingParts {
     private Fuel fuel;
     private double contain;
 
@@ -15,12 +15,9 @@ public class RocketFuelTank extends RocketPart implements Disconnectable, Holdin
         this.contain = contain;
     }
 
-    public boolean disconnect() {
-        if (isConnected()) {
-            setConnected(false);
-            return true;
-        }
-        return false;
+    @Override
+    public void disconnect() {
+        setConnected(false);
     }
 
     public Fuel getFuel() {

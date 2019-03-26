@@ -5,7 +5,7 @@ import rocket.rocketcore.RocketPart;
 public class Explosive extends RocketPart {
     private double power;
 
-    Explosive(double weight, double power) {
+    public Explosive(double weight, double power) {
         super(weight);
         this.power = power;
     }

@@ -2,7 +2,7 @@ package rocket.rocketcore;
 
 import rocket.objcontrol.Obj;
 
-public abstract class RocketPart extends Obj {
+public abstract class RocketPart extends Obj { // change it to GameObj
     private double weight;
     private boolean connected;
 

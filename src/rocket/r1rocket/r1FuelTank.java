@@ -1,7 +1,7 @@
 package rocket.r1rocket;
 
 import rocket.rocketcore.rocketcomponent.RocketFuelTank;
-import rocket.rocketcore.rocketfragment.FuelCompressedGas;
+import rocket.rocketcore.rocketfragment.prefixmodel.FuelCompressedGas;
 
 public class r1FuelTank extends RocketFuelTank {
     r1FuelTank() {

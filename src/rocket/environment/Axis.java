@@ -43,6 +43,10 @@ public class Axis {
         this.angle = angle;
     }
 
+    public static double angleConverter(double angle, boolean isDegree) {
+        return isDegree ? angle * Math.PI / 180 : angle * 180 / Math.PI;
+    }
+
     @Override
     public String toString() {
         return String.format("x:%7.4f y:%7.4f a:%7.4f", xAxis, yAxis, angle);

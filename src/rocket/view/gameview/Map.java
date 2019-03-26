@@ -1,4 +1,4 @@
-package rocket.environment;
+package rocket.view.gameview;
 
 public class Map {
     private double groundLevel;

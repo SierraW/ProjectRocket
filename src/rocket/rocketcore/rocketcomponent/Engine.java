@@ -1,23 +1,21 @@
 package rocket.rocketcore.rocketcomponent;
 
-import rocket.rocketcore.Disconnectable;
+import rocket.environment.GlobalTickTime;
+import rocket.rocketcore.Controllable;
 import rocket.rocketcore.RocketPart;
-import rocket.rocketcore.rocketfragment.Fuel;
 
-public class Engine extends RocketPart implements Disconnectable {
+public class Engine extends RocketPart implements Controllable {
     private double powerPerTick;
+    private double turnDomain;
 
-    public Engine(double partWeight, double powerPerTick) {
+    public Engine(double partWeight, double powerPerSec) {
         super(partWeight);
-        this.powerPerTick = powerPerTick;
+        this.powerPerTick = powerPerSec / GlobalTickTime.getTickPerSecond();
     }
 
-    public boolean disconnect() {
-        if (isConnected()) {
-            setConnected(false);
-            return true;
-        }
-        return false;
+    @Override
+    public void disconnect() {
+        setConnected(false);
     }
 
     public double getPowerPerTick() {

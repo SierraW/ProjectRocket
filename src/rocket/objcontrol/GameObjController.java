@@ -1,8 +1,8 @@
 package rocket.objcontrol;
 
 import rocket.environment.Axis;
-import rocket.environment.Resistance;
-import rocket.environment.Speed;
+import rocket.phisics.Resistance;
+import rocket.environment.Velocity;
 import rocket.environment.Timer;
 import rocket.phisics.Calculator;
 import rocket.phisics.Messaging;
@@ -11,7 +11,7 @@ import rocket.rocketcore.Rocket;
 
 import java.util.ArrayList;
 
-public class GameObjController implements Runnable {
+public class GameObjController {
     Timer timer;
     Resistance resistance;
     boolean fuelOut = true;
@@ -21,45 +21,7 @@ public class GameObjController implements Runnable {
         resistance = new Resistance();
     }
 
-    public void rocketController(Rocket rocket) {
-        if (rocket.getThrottle() <= 0.0 && rocket.getAxis().getYAxis() <= 0.0) {
-            return;
-        }
 
-        rocket.getTimer().tick();
-
-        if (rocket.isLanded()) {
-            return;
-        }
-
-        if (rocket.getTimer().gettPlus() * 100 % 10 == 0 || rocket.getTimer().getTickPlus() == 1) {
-//            System.out.print("t+:" + rocket.getTimer().gettPlus() + " : ");
-//            System.out.println(rocket.printStatus());
-            for(int i = 0; i<rocket.getAxis().getYAxis(); i++) {
-                System.out.print("=");
-            }
-            System.out.printf(" t+:%5.2f y:%2.1f\n", rocket.getTimer().gettPlus(), rocket.getAxis().getYAxis());
-        }
-
-
-        Axis axis = rocket.getAxis();
-        Speed v0 = rocket.getSpeed();
-        Speed p = rocket.burn(rocket.getThrottle());
-        if (rocket.getRocketFuelTank().getContain() == 0.0 && fuelOut) {
-            fuelOut = false;
-            System.out.println("fuel out");
-        }
-        double m = rocket.calWeight();
-        Speed f = resistance.getResistance(p);
-
-        Messaging<Speed, Axis> messaging = Calculator.calRocket(v0, p, f, m, axis);
-
-        rocket.setAxis(messaging.AXIS);
-        rocket.setSpeed(messaging.SPEED);
-        if (rocket.isLanded()) {
-            System.out.println("t+:" + rocket.getTimer().gettPlus() + " " + rocket.printStatus() + " Landed cause:" + rocket.getWarhead().calExplosivePower());
-        }
-    }
 
     private void land(Rocket rocket) {
         if (rocket.getTimer().getTickPlus() == 560) {
@@ -93,18 +55,22 @@ public class GameObjController implements Runnable {
     }
 
 
-    @Override
     public void run() {
         timer.tick();
         ArrayList<GameObj> gameObjs = GameObjRegister.getGameObjects();
         for (GameObj gameObj : gameObjs) {
             if (gameObj instanceof Rocket) {
+                Rocket rocket = (Rocket) gameObj;
+//                if (timer.getTickPlus() == 100) {
+//                    gameObj.setAxis(new Axis(0,200));
+//                } else {
+//                    land((Rocket)gameObj);
+//                }
+
                 if (timer.getTickPlus() == 100) {
-                    gameObj.setAxis(new Axis(0,200));
-                } else {
-                    land((Rocket)gameObj);
+                    ((Rocket) gameObj).setThrottle(1);
                 }
-                rocketController((Rocket)gameObj);
+                ((Rocket)gameObj).update();
             }
 
         }
