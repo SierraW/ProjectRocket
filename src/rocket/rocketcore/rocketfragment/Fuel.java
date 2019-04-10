@@ -3,14 +3,14 @@ package rocket.rocketcore.rocketfragment;
 import rocket.rocketcore.RocketPart;
 
 public class Fuel extends RocketPart {
-    private double energyPerTon;
+    private float energyPerTon;
 
-    public Fuel(double weightPerTon, double energyPerTon) {
+    public Fuel(float weightPerTon, float energyPerTon) {
         super(weightPerTon);
         this.energyPerTon = energyPerTon;
     }
 
-    public double getEnergyPerTon() {
+    public float getEnergyPerTon() {
         return energyPerTon;
     }
 }

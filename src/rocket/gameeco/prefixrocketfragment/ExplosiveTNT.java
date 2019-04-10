@@ -1,4 +1,4 @@
-package rocket.rocketcore.rocketfragment.prefixmodel;
+package rocket.gameeco.prefixrocketfragment;
 
 import rocket.rocketcore.rocketfragment.Explosive;
 

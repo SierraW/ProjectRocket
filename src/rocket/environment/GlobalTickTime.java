@@ -1,13 +1,13 @@
 package rocket.environment;
 
 public class GlobalTickTime {
-    private static double tickPerSecond = 100;
+    private static float tickPerSecond = 100f;
 
-    public static double getTickPerSecond() {
+    public static float getTickPerSecond() {
         return tickPerSecond;
     }
 
-    public static void setTickPerSecond(double tickPerSecond) {
+    public static void setTickPerSecond(float tickPerSecond) {
         GlobalTickTime.tickPerSecond = tickPerSecond;
     }
 }

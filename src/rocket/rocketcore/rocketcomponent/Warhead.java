@@ -20,16 +20,16 @@ public class Warhead extends RocketPart implements HoldingParts {
     }
 
     @Override
-    public double calWeight() {
-        double weight = 0;
+    public float calWeight() {
+        float weight = 0;
         for (Explosive explosive: explosives) {
             weight += explosive.getWeight();
         }
         return weight;
     }
 
-    public double calExplosivePower() {
-        double power = 0;
+    public float calExplosivePower() {
+        float power = 0;
         for (Explosive explosive: explosives) {
             power += explosive.getPower();
         }

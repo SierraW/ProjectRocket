@@ -1,8 +1,8 @@
-package rocket.r1rocket;
+package rocket.gameeco.r1rocket;
 
 import rocket.rocketcore.rocketcomponent.Warhead;
 import rocket.rocketcore.rocketfragment.Explosive;
-import rocket.rocketcore.rocketfragment.prefixmodel.ExplosiveTNT;
+import rocket.gameeco.prefixrocketfragment.ExplosiveTNT;
 
 public class r1Warhead extends Warhead {
     r1Warhead() {

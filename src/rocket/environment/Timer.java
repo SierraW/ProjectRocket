@@ -7,8 +7,8 @@ public class Timer {
         tickPlus = 0;
     }
 
-    public double gettPlus() {
-        return (double) tickPlus / GlobalTickTime.getTickPerSecond();
+    public float gettPlus() {
+        return (float) tickPlus / GlobalTickTime.getTickPerSecond();
     }
 
     public int getTickPlus() {

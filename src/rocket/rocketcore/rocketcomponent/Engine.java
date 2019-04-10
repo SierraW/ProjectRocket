@@ -5,10 +5,10 @@ import rocket.rocketcore.Controllable;
 import rocket.rocketcore.RocketPart;
 
 public class Engine extends RocketPart implements Controllable {
-    private double powerPerTick;
-    private double turnDomain;
+    private float powerPerTick;
+    private float turnDomain;
 
-    public Engine(double partWeight, double powerPerSec) {
+    public Engine(float partWeight, float powerPerSec) {
         super(partWeight);
         this.powerPerTick = powerPerSec / GlobalTickTime.getTickPerSecond();
     }
@@ -18,7 +18,7 @@ public class Engine extends RocketPart implements Controllable {
         setConnected(false);
     }
 
-    public double getPowerPerTick() {
+    public float getPowerPerTick() {
         return powerPerTick;
     }
 

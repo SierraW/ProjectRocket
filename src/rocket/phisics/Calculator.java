@@ -4,21 +4,23 @@ import rocket.environment.Axis;
 import rocket.environment.Velocity;
 
 public class Calculator {
-    public static Messaging<Velocity, Axis> calRocket(Velocity v0, Velocity power, Velocity resistance, double weight, Axis axis) {
-        double vy = v0.getXY().getYAxis();
-        double vx = v0.getXY().getXAxis();
+    public static Messaging<Velocity, Axis> calRocket(Velocity v0, Velocity power, Velocity resistance, float weight, Axis axis) {
+        float vy = v0.getXY().getYAxis();
+        float vx = v0.getXY().getXAxis();
 
-        double ay = power.getXY().getYAxis();
-        double ax = power.getXY().getXAxis();
+        float ay = power.getXY().getYAxis();
+        float ax = power.getXY().getXAxis();
 
-        ay = ay / weight + resistance.getXY().getYAxis();
-        ax = ax / weight + resistance.getXY().getXAxis();
+        Axis resistanceAxis = resistance.getXY();
 
-        double vfx = vx + ax;
-        double vfy = vy + ay;
+        ay = ay / weight + resistanceAxis.getYAxis();
+        ax = ax / weight + resistanceAxis.getXAxis();
 
-        double fx = axis.getXAxis() + vfx;
-        double fy = axis.getYAxis() + vfy;
+        float vfx = vx + ax;
+        float vfy = vy + ay;
+
+        float fx = axis.getXAxis() + vfx;
+        float fy = axis.getYAxis() + vfy;
 
         Velocity fv = new Velocity(vfx,vfy,true);
 

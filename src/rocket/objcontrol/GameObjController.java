@@ -2,11 +2,9 @@ package rocket.objcontrol;
 
 import rocket.environment.Axis;
 import rocket.phisics.Resistance;
-import rocket.environment.Velocity;
 import rocket.environment.Timer;
-import rocket.phisics.Calculator;
-import rocket.phisics.Messaging;
 import rocket.rocketcore.Rocket;
+import rocket.rocketcore.rocketcontrol.RocketControl;
 
 
 import java.util.ArrayList;
@@ -21,62 +19,38 @@ public class GameObjController {
         resistance = new Resistance();
     }
 
-
-
-    private void land(Rocket rocket) {
-        if (rocket.getTimer().getTickPlus() == 560) {
-            System.out.println("active!");
-            rocket.setThrottle(1);
-        } else if (rocket.getTimer().getTickPlus() == 580) {
-            rocket.setThrottle(0);
-        } else if (rocket.getTimer().getTickPlus() == 670) {
-            rocket.setThrottle(1);
-        } else if (rocket.getTimer().getTickPlus() > 680 && rocket.getTimer().getTickPlus() < 700) {
-            if (rocket.getSpeed().getSpeed() > -0.08) {
-                rocket.setThrottle(0);
-            } else {
-                rocket.setThrottle(1);
-            }
-        } else if (rocket.getTimer().getTickPlus() > 700) {
-            if (rocket.getAxis().getYAxis() < 0.5 && timer.getTickPlus() >= 300) {
-                if (rocket.getSpeed().getSpeed() > -0.001) {
-                    rocket.setThrottle(0);
-                } else {
-                    rocket.setThrottle(0.11);
-                }
-            } else {
-                if (rocket.getSpeed().getSpeed() > -0.05) {
-                    rocket.setThrottle(0);
-                } else {
-                    rocket.setThrottle(0.5);
-                }
-            }
-        }
-    }
-
-
     public void run() {
         timer.tick();
-        ArrayList<GameObj> gameObjs = GameObjRegister.getGameObjects();
-        for (GameObj gameObj : gameObjs) {
-            if (gameObj instanceof Rocket) {
-                Rocket rocket = (Rocket) gameObj;
+        ArrayList<RocketObj> rocketObjs = GameObjRegister.getGameObjects();
+        for (RocketObj rocketObj : rocketObjs) {
+            if (rocketObj instanceof Rocket) {
+                Rocket rocket = (Rocket) rocketObj;
 //                if (timer.getTickPlus() == 100) {
-//                    gameObj.setAxis(new Axis(0,200));
+//                    rocketObj.setAxis(new Axis(0,200));
 //                } else {
-//                    land((Rocket)gameObj);
+//                    land((Rocket)rocketObj);
 //                }
 
+
                 if (timer.getTickPlus() == 100) {
-                    ((Rocket) gameObj).setThrottle(1);
+                    rocketObj.setActive(true);
+                    rocketObj.setAxis(new Axis(0,200));
+//                    ((Rocket) rocketObj).getRocketControl().setThrottle(1);
+//                    ((Rocket) rocketObj).getRocketControl().setAngle(75,true);
                 }
-                ((Rocket)gameObj).update();
+                if (timer.getTickPlus() == 200) {
+                    ((Rocket) rocketObj).setRocketControl(new RocketControl());
+                }
+                if (timer.getTickPlus() == 300) {
+                    ((Rocket) rocketObj).setRocketControl(new RocketControl(0,280));
+                }
+                ((Rocket) rocketObj).update();
             }
 
         }
 
 //        if ((int) (timer.gettPlus() * 100) % 100 == 0) {
-//            System.out.printf("Gametime: %4.2f rocket1: t+:%4.2f\n", timer.gettPlus(), gameObjs.get(0).getTimer().gettPlus());
+//            System.out.printf("Gametime: %4.2f rocket1: t+:%4.2f\n", timer.gettPlus(), rocketObjs.get(0).getTimer().gettPlus());
 //        }
     }
 }

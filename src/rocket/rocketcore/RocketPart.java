@@ -2,24 +2,24 @@ package rocket.rocketcore;
 
 import rocket.objcontrol.Obj;
 
-public abstract class RocketPart extends Obj { // change it to GameObj
-    private double weight;
+public abstract class RocketPart extends Obj { // change it to RocketObj
+    private float weight;
     private boolean connected;
 
-    public RocketPart(double weight) {
+    public RocketPart(float weight) {
         this.weight = weight;
         connected = true;
     }
 
-    public double getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public void addWeight(double weight){
+    public void addWeight(float weight){
         this.weight += weight;
     }
 

@@ -1,50 +1,56 @@
 package rocket.environment;
 
 public class Velocity {
-    private final double speed;
-    private final double angle;
+    private final float speed;
+    private final float angle;
 
-    public Velocity(double speed, double angle) {
+    public Velocity(float speed, float angle) {
         this.speed = speed;
         this.angle = angle;
     }
 
-    public double getAngle() {
+    public float getAngle() {
         return angle;
     }
 
-    public double getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
     public Axis getXY() {
         double myAngle = angle;
-        while (myAngle >= 2 * Math.PI) {
-            myAngle = myAngle - 2 * Math.PI;
+        while (myAngle >= 360) {
+            myAngle = myAngle - 360;
         }
-        double vY;
-        double vX;
-        if (myAngle >= 0 && myAngle < Math.PI / 2) {
-            vY = speed * Math.sin(myAngle);
-            vX = speed * Math.cos(myAngle);
-        } else if (myAngle >= Math.PI / 2 && myAngle < Math.PI) {
-            myAngle = Math.PI - myAngle;
-            vY = speed * Math.sin(myAngle);
-            vX = -(speed * Math.cos(myAngle));
-        } else if(myAngle>= Math.PI && myAngle < 3 * Math.PI / 2) {
-            myAngle = myAngle - Math.PI;
-            vY = -(speed * Math.sin(myAngle));
-            vX = -(speed * Math.cos(myAngle));
+
+        float vY;
+        float vX;
+        if (myAngle >= 0 && myAngle < 90) {
+            vY = speed * (float)Math.sin(Math.toRadians(myAngle));
+            vX = speed * (float)Math.cos(Math.toRadians(myAngle));
+        } else if (myAngle >= 90 && myAngle < 180) {
+            myAngle = 180 - myAngle;
+            vY = speed * (float)Math.sin(Math.toRadians(myAngle));
+            vX = -(speed * (float)Math.cos(Math.toRadians(myAngle)));
+        } else if(myAngle>= 180 && myAngle < 3 * 90) {
+            myAngle = myAngle - 180;
+            vY = -(speed * (float)Math.sin(Math.toRadians(myAngle)));
+            vX = -(speed * (float)Math.cos(Math.toRadians(myAngle)));
         } else {
-            myAngle = 2* Math.PI - myAngle;
-            vY = -(speed * Math.sin(myAngle));
-            vX = speed * Math.cos(myAngle);
+            myAngle = 360 - myAngle;
+            vY = -(speed * (float)Math.sin(Math.toRadians(myAngle)));
+            vX = speed * (float)Math.cos(Math.toRadians(myAngle));
         }
 
         return new Axis(vX,vY);
     }
 
     public Velocity(double vX, double vY, boolean createNew) {
+        if(vX == 0 && vY == 0) {
+            this.speed = 0;
+            this.angle = 0;
+            return;
+        }
         double speed;
         double angle;
         if (vX < 0) {
@@ -68,8 +74,8 @@ public class Velocity {
                 angle = Math.asin(vY/speed);
             }
         }
-        this.speed = speed;
-        this.angle = angle;
+        this.speed = (float)speed;
+        this.angle = (float)Math.toDegrees(angle);
     }
 
 

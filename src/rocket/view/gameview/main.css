@@ -1,0 +1,17 @@
+.player{
+    -fx-fill: lightgreen;
+    -fx-stroke : grey;
+}
+
+.enemy {
+    -fx-fill: pink;
+    -fx-stroke: grey;
+}
+
+#midland {
+    -fx-fill: grey;
+}
+
+#player:hover {
+    -fx-fill: darkgreen;
+}
