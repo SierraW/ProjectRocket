@@ -9,7 +9,7 @@ public class StructureSelectBtn extends Button {
     private int setCount;
 
     public StructureSelectBtn(boolean structureSelection) {
-        super();
+        super("Empty Slot");
         structureType = StructureType.Empty;
         setCount = 0;
         this.structureSelection = structureSelection;

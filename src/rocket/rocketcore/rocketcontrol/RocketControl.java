@@ -17,7 +17,7 @@ public class RocketControl {
 
     public RocketControl() {
         throttle = 0;
-        powerTurnAngel = 90;
+        powerTurnAngel = 0;
         detonate = false;
         powerTurnControlMap = new HashMap<>();
         throttleControlMap = new HashMap<>();
@@ -36,6 +36,10 @@ public class RocketControl {
 
     public float getThrottle() {
         return throttle;
+    }
+
+    public Integer getExplodeTime() {
+        return explodeTime;
     }
 
     public boolean isDetonate() {

@@ -17,7 +17,8 @@ public class PrefixStage {
 
     public static PrefixStage getInstance() {
         if (prefixStage == null) {
-            return new PrefixStage();
+            prefixStage = new PrefixStage();
+            return prefixStage;
         } else {
             return prefixStage;
         }

@@ -3,63 +3,100 @@ package rocket.view.prepscene;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import rocket.environment.RocketGame;
-import rocket.gameeco.variable.GlobalVariable;
-import rocket.gridsystem.PlayerGridLoader;
-import rocket.view.gameview.StructureView;
+import rocket.view.mainmenu.MainMenuScene;
+import rocket.view.mainmenu.ReadMeScene;
+import rocket.view.setupscene.MakeGridScene;
 
 public class DevControlWriter extends Application {
 
-    AnchorPane anchorPane = new AnchorPane();
-    Scene scene = new Scene(anchorPane, GlobalVariable.screenWidth, GlobalVariable.screenHeight);
-    ControlWriterGridPane cwg = new ControlWriterGridPane();
-    GridPane gridPane = cwg.getCurrentPane();
+    //scene main menu
+    Button btnMakeGrid = new Button("Make Grid!");
+    Button btnControlWriter = new Button("Control writer");
+    Button btnReadMe = new Button("Read Me First!");
+
+    //scene make grid
+    Button btnMGBack = new Button("Back");
+
+
+    //scene control writer
+    Button btnCWBack = new Button("Back");
+    Scene sceneCW;
+    String stylesheet = getClass().getResource("../gameview/main.css").toExternalForm();
+    GameBackgroundMapPane gameBackgroundMapPane = GameBackgroundMapPane.getInstance();
+    ControlWriterScene cwg = new ControlWriterScene(btnCWBack);
+    RocketPrepareScene rps = new RocketPrepareScene();
+    Button btnSimulate = new Button("GO TEST!");
+    Button btnBack = new Button("Back");
+
+    //scene read me
+    Button btnRMBack = new Button("Back");
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        String stylesheet = getClass().getResource("../gameview/main.css").toExternalForm();
+        //Control writer
+        setupControlWriter();
+        btnSimulate.setOnAction(event -> {
+            primaryStage.setScene(startRocketSim());
+        });
+        btnCWBack.setOnAction(event -> primaryStage.setScene(getMainMenu()));
 
-        Group group = new Group();
+        //Rocket Sim
+        btnBack.setOnAction(event -> primaryStage.setScene(sceneCW));
 
-        RocketGame rg= new RocketGame(GlobalVariable.screenWidth);
+        //main menu
+        btnMakeGrid.setOnAction(event -> primaryStage.setScene(getMakeGrid()));
+        btnControlWriter.setOnAction(event -> primaryStage.setScene(sceneCW));
 
-        StructureView structureView = new StructureView();
+        //scene make grid
+        btnMGBack.setOnAction(event -> primaryStage.setScene(getMainMenu()));
 
-        PlayerGridLoader playerGridLoader = new PlayerGridLoader();
-
-        try {
-            playerGridLoader.load(GlobalVariable.getUserFile(), rg.getPlayerGrid());
-            playerGridLoader.load(GlobalVariable.getUserFile(), rg.getEnemyGrid());
-        } catch (Exception e) {
-            System.out.println("User file not found.");
-        }
-
-        group.getChildren().addAll(structureView.getGrids(rg));
-
-        anchorPane.getChildren().addAll(group, gridPane);
+        //read me scene
+        btnRMBack.setOnAction(event -> primaryStage.setScene(getMainMenu()));
+        btnReadMe.setOnAction(event -> primaryStage.setScene(getReadMe()));
 
 
-        scene.getStylesheets().addAll(stylesheet);
-
-        primaryStage.setScene(scene);
+        primaryStage.setScene(getMainMenu());
         primaryStage.show();
 
     }
 
-    public void refresh() {
-        gridPane = cwg.getCurrentPane();
-        anchorPane.getChildren().set(1, gridPane);
+    public Scene startRocketSim() {
+        rps = new RocketPrepareScene();
+        Scene scene = rps.getScene(gameBackgroundMapPane.getAnchorPane(), gameBackgroundMapPane.getRocketLauncherXAxis(), btnBack);
+        scene.getStylesheets().addAll(stylesheet);
+        return scene;
     }
 
+    public void setupControlWriter() {
+        sceneCW = cwg.getScene(gameBackgroundMapPane.getAnchorPane(), btnSimulate);
+        sceneCW.getStylesheets().addAll(stylesheet);
+    }
+
+
+    public Scene getMainMenu() {
+        MainMenuScene mms = new MainMenuScene(btnMakeGrid, btnControlWriter, btnReadMe);
+        Scene sceneMM = mms.getScene();
+        return sceneMM;
+    }
+
+    public Scene getMakeGrid() {
+        MakeGridScene makeGridScene = new MakeGridScene(btnMGBack);
+        GameBackgroundMapPane gmp = GameBackgroundMapPane.getInstance();
+        try {
+            Scene scene = makeGridScene.getScene(gmp.getAnchorPane());
+            return scene;
+        } catch (Exception e) {
+            System.out.println("DevControlWriter: No such file");
+        }
+        return null;
+    }
+
+    public Scene getReadMe() {
+        ReadMeScene readMeScene = new ReadMeScene(btnRMBack);
+        return readMeScene.getScene();
+    }
 }

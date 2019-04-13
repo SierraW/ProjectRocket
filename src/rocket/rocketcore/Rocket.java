@@ -56,21 +56,25 @@ public class Rocket extends RocketObj implements HoldingParts, LiveGameObj {
         if (rocketFuelTank.getContain() < fuelBurnt) { // if not enouht fuel
             float power = rocketFuelTank.getFuel().getEnergyPerTon() * rocketFuelTank.getContain();
             rocketFuelTank.setContain(0);
-            return new Velocity(power, rocketControl.getAngle());
+            return new Velocity(power, this.getAxis().getAngle() + rocketControl.getAngle());
         }
         rocketFuelTank.burnFuel(fuelBurnt);
-        return new Velocity(fuelBurnt * rocketFuelTank.getFuel().getEnergyPerTon(), rocketControl.getAngle());
+        return new Velocity(fuelBurnt * rocketFuelTank.getFuel().getEnergyPerTon(), this.getAxis().getAngle() + rocketControl.getAngle());
     }
 
     @Override
     public void update() {
+        this.getTimer().tick();
         rocketControl.update(this.getTimer().getTickPlus()); // must be update first.
 
         if (this.rocketControl.getThrottle() <= 0.0 && this.getAxis().getYAxis() <= 0.0) {
             return;
         }
 
-        this.getTimer().tick();
+        if (rocketControl.isDetonate()) {
+            setExploded(true);
+        }
+
 
         if (!this.isActive()) {
             return;
@@ -107,11 +111,16 @@ public class Rocket extends RocketObj implements HoldingParts, LiveGameObj {
 
     public void setExploded(boolean exploded) {
         this.exploded = exploded;
+        System.out.println("Boom");
         this.setActive(false);
     }
 
     public boolean isExploded() {
         return exploded;
+    }
+
+    public float getExplodeRadius() {
+        return this.warhead.calExplosivePower();
     }
 
     public void setName(String name) {
@@ -146,7 +155,15 @@ public class Rocket extends RocketObj implements HoldingParts, LiveGameObj {
 
     @Override
     public String printStatus() {
-        return String.format("%s %s fuel:%5.2f weight:%5.2f throttle:%s speed:%5.3fm/s momentum:%5.2f", getSymbol(), getAxis().toString(), rocketFuelTank.getContain(), this.calWeight(), this.rocketControl.getThrottle(), this.getSpeed().getSpeed() * 100, this.calWeight() * this.getSpeed().getSpeed());
+        if (!fuelOut) {
+            return String.format("%s  weight:%5.2f  fuel:%5.2f  throttle:%s  powerTurnAngel:%s  speed:%5.3fm/s  momentum:%5.2f", getSymbol(), this.calWeight(), rocketFuelTank.getContain(), this.rocketControl.getThrottle(), this.rocketControl.getAngle(), this.getSpeed().getSpeed() * 100, this.calWeight() * this.getSpeed().getSpeed());
+        }
+        return String.format("%s  weight:%5.2f  fuel:%5.2f  throttle:%s  powerTurnAngel:%s  speed:%5.3fm/s  momentum:%5.2f", getSymbol(), this.calWeight(), rocketFuelTank.getContain(), "Out of fuel", "Out of fuel", this.getSpeed().getSpeed() * 100, this.calWeight() * this.getSpeed().getSpeed());
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s  %s  weight:%5.2f  speed:%5.3fm/s  momentum:%5.2f", getSymbol(), getAxis() ,this.calWeight(), this.getSpeed().getSpeed() * 100, this.calWeight() * this.getSpeed().getSpeed());
+
+    }
 }

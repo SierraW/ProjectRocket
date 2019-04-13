@@ -4,22 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class RCSControlProtocol {
-    private Integer startTick;
-    private Float control;
+    protected Integer startTick;
+    protected Float control;
 
-    RCSControlProtocol(HashMap<Integer, Float> map, Integer startTick, Float control) throws IllegalArgumentException {
-        if (!setStartTick(map, startTick)) {
-            throw new IllegalArgumentException();
-        }
+    RCSControlProtocol(Integer startTick, Float control) throws IllegalArgumentException {
+        setStartTick(startTick);
         setControl(control);
     }
 
-    public boolean setStartTick(HashMap<Integer, Float> map, Integer startTick) {
-        if (map.containsKey(startTick)) {
-            return false;
-        }
+    public void setStartTick( Integer startTick) {
         this.startTick = startTick;
-        return true;
     }
 
     public abstract void setControl(Float control);

@@ -45,7 +45,7 @@ public class RocketsController implements LiveGameObj {
         return active;
     }
 
-    public void addGameObjs(RocketObj rocketObj) {
+    public void addRocketObjs(RocketObj rocketObj) {
         this.rocketObjs.add(rocketObj);
     }
 

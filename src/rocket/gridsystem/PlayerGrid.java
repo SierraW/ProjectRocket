@@ -48,4 +48,13 @@ public class PlayerGrid extends MidGrid {
     public Grid[] getGrid() {
         return grids;
     }
+
+    public float getRocketLaunchPadXAxis() {
+        for(Grid grid: grids) {
+            if (grid.getStructureType() == StructureType.RocketLaunchPad) {
+                return grid.getRange().getStartX();
+            }
+        }
+        return 10;
+    }
 }

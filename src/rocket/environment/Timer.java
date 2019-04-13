@@ -16,6 +16,11 @@ public class Timer {
     }
 
     public void tick() {
-        tickPlus += 1;
+        tickPlus++;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%3.1f", gettPlus());
     }
 }

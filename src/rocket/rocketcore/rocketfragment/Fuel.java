@@ -5,8 +5,8 @@ import rocket.rocketcore.RocketPart;
 public class Fuel extends RocketPart {
     private float energyPerTon;
 
-    public Fuel(float weightPerTon, float energyPerTon) {
-        super(weightPerTon);
+    public Fuel(float energyPerTon) {
+        super(1);
         this.energyPerTon = energyPerTon;
     }
 

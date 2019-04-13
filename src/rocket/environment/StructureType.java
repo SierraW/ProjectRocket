@@ -3,26 +3,22 @@ package rocket.environment;
 import javafx.scene.control.Label;
 
 public enum StructureType {
-    Empty, CommandCentre, RocketF1, RocketF2, RocketF3, FuelSupply, SolidFuelSupply, SteelF, RDX_F, HMX_F, CommTower; //RocketLaunchPad;
+    Empty, CommandCentre, RocketF, FuelSupply, SolidFuelSupply, SteelF, RDX_F, HMX_F, CommTower, RocketLaunchPad;
 
     public boolean getRequired() {
         switch (this) {
             case CommandCentre:
                 return true;
-            case RocketF1:
-                return true;
-            case RocketF2:
-                return true;
-            case RocketF3:
-                return true;
+            case RocketF:
+                return false;
             case FuelSupply:
+                return false;
+            case RocketLaunchPad:
                 return true;
-//            case RocketLaunchPad:
-//                return true;
             case CommTower:
-                return true;
+                return false;
             case SteelF:
-                return true;
+                return false;
             case RDX_F:
                 return false;
             case HMX_F:
@@ -38,11 +34,7 @@ public enum StructureType {
         switch (this) {
             case CommTower:
                 return 2;
-            case RocketF1:
-                return 1;
-            case RocketF2:
-                return 1;
-            case RocketF3:
+            case RocketF:
                 return 1;
             case FuelSupply:
                 return 10;
@@ -56,8 +48,8 @@ public enum StructureType {
                 return 1;
             case CommandCentre:
                 return 1;
-//            case RocketLaunchPad:
-//                return 15;
+            case RocketLaunchPad:
+                return 1;
             default:
                 return 20;
         }
@@ -69,10 +61,8 @@ public enum StructureType {
                 return "Command Centre";
             case SolidFuelSupply:
                 return "Solid Fuel Factory";
-            case RocketF1:
-            case RocketF2:
-            case RocketF3:
-                return "Rocket Factory and Launch Pad";
+            case RocketF:
+                return "Rocket Factory";
             case CommTower:
                 return "Communication Tower";
             case SteelF:
@@ -83,8 +73,8 @@ public enum StructureType {
                 return "HMX Factory";
             case RDX_F:
                 return "RDX Factory";
-//            case RocketLaunchPad:
-//                return "RocketLaunchPad";
+            case RocketLaunchPad:
+                return "RocketLaunchPad";
             default:
                 return "Empty";
         }
@@ -93,14 +83,12 @@ public enum StructureType {
     public Label getLabel() {
         switch (this) {
             case CommandCentre:
-                return new Label("CC");
+                return new Label("Comm");
             case FuelSupply:
                 return new Label("FF");
             case SolidFuelSupply:
                 return new Label("SF");
-            case RocketF1:
-            case RocketF2:
-            case RocketF3:
+            case RocketF:
                 return new Label("RF");
             case CommTower:
                 return new Label("CT");
@@ -110,8 +98,8 @@ public enum StructureType {
                 return new Label("RF");
             case HMX_F:
                 return new Label("HF");
-//            case RocketLaunchPad:
-//                return new Label("LP");
+            case RocketLaunchPad:
+                return new Label("L.Pad");
             default:
                 return new Label("");
         }

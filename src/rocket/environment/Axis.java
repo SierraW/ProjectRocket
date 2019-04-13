@@ -49,6 +49,6 @@ public class Axis {
 
     @Override
     public String toString() {
-        return String.format("x:%7.4f y:%7.4f a:%7.4f", xAxis, yAxis, angle);
+        return String.format("x:%7.4f y:%7.4f angel:%7.4f", xAxis, yAxis, angle);
     }
 }

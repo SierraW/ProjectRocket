@@ -5,7 +5,7 @@ import rocket.rocketcore.rocketfragment.Explosive;
 import rocket.gameeco.prefixrocketfragment.ExplosiveTNT;
 
 public class r1Warhead extends Warhead {
-    r1Warhead() {
+    public r1Warhead() {
         super();
         Explosive[] explosives = {new ExplosiveTNT()};
         setExplosives(explosives);

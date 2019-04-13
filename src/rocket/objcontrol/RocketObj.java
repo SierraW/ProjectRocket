@@ -21,7 +21,7 @@ public abstract class RocketObj extends GameObj{
     public abstract String printStatus();
 
     public void setAxis(Axis axis) {
-        if (axis.getYAxis() <= 0) {
+        if (axis.getYAxis() < 0) {
             setActive(false);
             axis.setYAxis(0);
         }

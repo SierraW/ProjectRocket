@@ -15,3 +15,7 @@
 #player:hover {
     -fx-fill: darkgreen;
 }
+
+#warning {
+    -fx-text-fill:red;
+}
