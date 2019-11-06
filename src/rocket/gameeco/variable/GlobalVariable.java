@@ -64,7 +64,7 @@ public class GlobalVariable {
         }
     }
 
-    public static int currentSelectedRCFileIndex = 0;
+    public static int currentSelectedRCFileIndex = 6;
 
     public static final float MAXPOWERTURNANGLE = 5;
 }

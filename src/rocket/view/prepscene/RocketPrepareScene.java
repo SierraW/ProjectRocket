@@ -61,7 +61,7 @@ public class RocketPrepareScene {
         cirExplodeRing.setStroke(Color.RED);
         cirExplodeRing.setFill(Color.TRANSPARENT);
 
-        Text txtRocket = new Text("r1rocket");
+        Text txtRocket = new Text("Rocket");
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(cirRocket,txtRocket);
         txtRocket.setTranslateY(10);

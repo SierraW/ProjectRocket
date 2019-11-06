@@ -24,7 +24,7 @@ public class Calculator {
 
         Velocity fv = new Velocity(vfx,vfy,true);
 
-        return new Messaging<Velocity, Axis>(fv, new Axis(fx, fy, fv.getAngle()));
+        return new Messaging<>(fv, new Axis(fx, fy, fv.getAngle()));
     }
 
 }

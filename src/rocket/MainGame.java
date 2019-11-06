@@ -1,4 +1,4 @@
-package rocket.view.prepscene;
+package rocket;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -8,9 +8,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import rocket.view.mainmenu.MainMenuScene;
 import rocket.view.mainmenu.ReadMeScene;
+import rocket.view.prepscene.ControlWriterScene;
+import rocket.view.prepscene.GameBackgroundMapPane;
+import rocket.view.prepscene.RocketPrepareScene;
 import rocket.view.setupscene.MakeGridScene;
 
-public class DevControlWriter extends Application {
+public class MainGame extends Application {
 
     //scene main menu
     Button btnMakeGrid = new Button("Make Grid!");
@@ -24,7 +27,7 @@ public class DevControlWriter extends Application {
     //scene control writer
     Button btnCWBack = new Button("Back");
     Scene sceneCW;
-    String stylesheet = getClass().getResource("../gameview/main.css").toExternalForm();
+    String stylesheet = getClass().getResource("view/gameview/main.css").toExternalForm();
     GameBackgroundMapPane gameBackgroundMapPane = GameBackgroundMapPane.getInstance();
     ControlWriterScene cwg = new ControlWriterScene(btnCWBack);
     RocketPrepareScene rps = new RocketPrepareScene();
@@ -90,7 +93,7 @@ public class DevControlWriter extends Application {
             Scene scene = makeGridScene.getScene(gmp.getAnchorPane());
             return scene;
         } catch (Exception e) {
-            System.out.println("DevControlWriter: No such file");
+            System.out.println("MainGame: No such file");
         }
         return null;
     }

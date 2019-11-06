@@ -73,10 +73,11 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
     Label lblFile = new Label("Files:");
 
     Label lblCurrentLoadedControlFile = new Label("Rocket Current Control File: ");
-    Label lblCurrentFileName = new Label("prefix-file1");
+    String[] strings = {"prefix-file1", "prefix-file2", "prefix-file3", "user-file1", "user-file2", "user-file3", "test-file"};
+    Label lblCurrentFileName = new Label(strings[GlobalVariable.currentSelectedRCFileIndex]);
 
     ComboBox<String> cmbFiles = new ComboBox<>();
-    String[] strings = {"prefix-file1", "prefix-file2", "prefix-file3", "user-file1", "user-file2", "user-file3", "test-file"};
+
 
     //    ControlWriterScene() {
 //        currentPane = getGridPane();
@@ -131,6 +132,7 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
         txtDetonateControl.setText("999");
 
         cmbFiles.getItems().addAll(strings);
+        cmbFiles.getSelectionModel().select(6);
 
         Label lblTitle = new Label("Controller(100ticks/sec)");
 
@@ -163,8 +165,8 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
         gridPane.add(btnTRemove, 6, 1);
         gridPane.add(btnTEdit, 7, 1);
 
-        gridPane.add(btnPFirst, 8,2);
-        gridPane.add(btnPLast,9,2);
+        gridPane.add(btnPFirst, 8, 2);
+        gridPane.add(btnPLast, 9, 2);
         gridPane.add(btnPPrevious, 3, 2);
         gridPane.add(btnPNext, 4, 2);
         gridPane.add(btnPAdd, 5, 2);
@@ -176,7 +178,7 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
         gridPane.add(lblFile, 0, 4);
         gridPane.add(cmbFiles, 1, 4);
         gridPane.add(btnWriteFile, 4, 4);
-
+        gridPane.add(btnNewFile, 5, 4);
         gridPane.add(btnReadFile, 3, 4);
 
         gridPane.add(lblWarning, 0, 6);
@@ -194,7 +196,7 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
         gridPane.add(btnSelect, 2, 9);
 
         gridPane.add(btnSimulate, 2, 10);
-        gridPane.add(btnCWBack,0,10);
+        gridPane.add(btnCWBack, 0, 10);
 
 
         GridPane.setHalignment(lblTitle, HPos.CENTER);
@@ -209,7 +211,7 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
         col1.setPercentWidth(15);
         gridPane.getColumnConstraints().addAll(col1, col23, col23);
 
-        newControl();
+        btnReadFile.fire();
 
         backgroundPane.getChildren().add(gridPane);
         return new Scene(backgroundPane, GlobalVariable.screenWidth, GlobalVariable.screenHeight);
@@ -402,22 +404,22 @@ public class ControlWriterScene implements EventHandler<ActionEvent> {
             GlobalVariable.currentSelectedRCFileIndex = cmbFiles.getSelectionModel().getSelectedIndex();
             lblCurrentFileName.setText(cmbFiles.getSelectionModel().getSelectedItem());
         } else if (event.getSource() == btnTFirst) {
-            if (rcSystemBuilder.setPointer(0,true)) {
+            if (rcSystemBuilder.setPointer(0, true)) {
                 lblWarning.setText("First Element");
             }
             updateTCText();
-        }else if (event.getSource() == btnPFirst) {
-            if (rcSystemBuilder.setPointer(0,false)) {
+        } else if (event.getSource() == btnPFirst) {
+            if (rcSystemBuilder.setPointer(0, false)) {
                 lblWarning.setText("First Element");
             }
             updatePTCText();
-        }else if (event.getSource() == btnTLast) {
-            if (rcSystemBuilder.setPointer(rcSystemBuilder.getThrottleControl().size()-1,true)) {
+        } else if (event.getSource() == btnTLast) {
+            if (rcSystemBuilder.setPointer(rcSystemBuilder.getThrottleControl().size() - 1, true)) {
                 lblWarning.setText("Last Element");
             }
             updateTCText();
-        }else if (event.getSource() == btnPLast) {
-            if (rcSystemBuilder.setPointer(rcSystemBuilder.getPowerTurnControl().size() - 1,false)) {
+        } else if (event.getSource() == btnPLast) {
+            if (rcSystemBuilder.setPointer(rcSystemBuilder.getPowerTurnControl().size() - 1, false)) {
                 lblWarning.setText("Last Element");
             }
             updatePTCText();

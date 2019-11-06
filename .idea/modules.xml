@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/S2PProject.iml" filepath="$PROJECT_DIR$/S2PProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProjectRocket.iml" filepath="$PROJECT_DIR$/ProjectRocket.iml" />
     </modules>
   </component>
 </project>
